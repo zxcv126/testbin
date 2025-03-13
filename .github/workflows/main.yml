@@ -17,12 +17,12 @@ jobs:
       - name: Run Downloads.bat
         run: |
           echo "Running Downloads.bat"
-          Start-Process -NoNewWindow -FilePath cmd.exe -ArgumentList '/c', 'Downloads.bat'  # ใช้ Start-Process แทน start /B
+          cmd /c Downloads.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาด
 
       - name: Run show.bat
         run: |
           echo "Running show.bat"
-          Start-Process -NoNewWindow -FilePath cmd.exe -ArgumentList '/c', 'show.bat'  # ใช้ Start-Process แทน start /B
+          cmd /c show.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
 
       - name: Download loop.bat
         run: |
@@ -37,6 +37,7 @@ jobs:
             Downloads.bat
             show.bat
             loop.bat
+            # เพิ่มไฟล์ที่ต้องการใช้งานใน part2 หรือ part3
 
   part2:
     name: Part 2
@@ -58,12 +59,12 @@ jobs:
       - name: Run show.bat in Part 2
         run: |
           echo "Running show.bat in Part 2"
-          Start-Process -NoNewWindow -FilePath cmd.exe -ArgumentList '/c', 'show.bat'  # ใช้ Start-Process แทน start /B
+          cmd /c show.bat || exit /b 1  # รัน show.bat ใน part2
 
       - name: Run loop.bat in Part 2
         run: |
           echo "Running loop.bat in Part 2"
-          Start-Process -NoNewWindow -FilePath cmd.exe -ArgumentList '/c', 'loop.bat'  # ใช้ Start-Process แทน start /B
+          cmd /c loop.bat || exit /b 1  # รัน loop.bat ใน part2
 
   part3:
     name: Part 3
@@ -85,9 +86,9 @@ jobs:
       - name: Run show.bat in Part 3
         run: |
           echo "Running show.bat in Part 3"
-          Start-Process -NoNewWindow -FilePath cmd.exe -ArgumentList '/c', 'show.bat'  # ใช้ Start-Process แทน start /B
+          cmd /c show.bat || exit /b 1  # รัน show.bat ใน part3
 
       - name: Run loop.bat in Part 3
         run: |
           echo "Running loop.bat in Part 3"
-          Start-Process -NoNewWindow -FilePath cmd.exe -ArgumentList '/c', 'loop.bat'  # ใช้ Start-Process แทน start /B
+          cmd /c loop.bat || exit /b 1  # รัน loop.bat ใน part3
