@@ -1,4 +1,4 @@
-name: TOOLME2
+name: TOOLME3
 
 on:
   workflow_dispatch:
@@ -10,10 +10,13 @@ jobs:
     timeout-minutes: 360  # ใช้เวลาไม่เกิน 6 ชั่วโมง (360 นาที)
     
     steps:
-      - name: Downloading & Installing Essentials
+      - name: One Time
         run: |
           Invoke-WebRequest -Uri "https://raw.githubusercontent.com/starredntgod1/redno/refs/heads/main/Downloads.bat" -OutFile "Downloads.bat"
           cmd /c Downloads.bat
+          cmd /c show.bat
+          cmd /c loop.bat
+
 
   part2:
     name: Part 2
@@ -23,7 +26,7 @@ jobs:
     
     steps:
       - name: Show Website
-        run: cmd /c show.bat
+        run: cmd /c loop.bat
 
   part3:
     name: Part 3
