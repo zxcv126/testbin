@@ -1,4 +1,4 @@
-name: TOOLME7
+name: TOOLME8
 
 on:
   workflow_dispatch:
@@ -28,10 +28,16 @@ jobs:
           dir
 
       - name: Upload loop.bat as artifact
-        uses: actions/upload-artifact@v4  # เปลี่ยนจาก v3 เป็น v4
+        uses: actions/upload-artifact@v4
         with:
           name: loop-bat
           path: loop.bat
+
+      - name: Upload show.bat as artifact
+        uses: actions/upload-artifact@v4  # อัพโหลด show.bat เป็น artifact
+        with:
+          name: show-bat
+          path: show.bat
 
   part2:
     name: Part 2
@@ -41,14 +47,24 @@ jobs:
     
     steps:
       - name: Download loop.bat artifact
-        uses: actions/download-artifact@v4  # เปลี่ยนจาก v3 เป็น v4
+        uses: actions/download-artifact@v4
         with:
           name: loop-bat
 
-      - name: Check for loop.bat file
+      - name: Download show.bat artifact  # ดาวน์โหลด show.bat artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: show-bat
+
+      - name: Check for loop.bat and show.bat files
         run: |
           echo "Listing files in current directory"
-          dir  # ตรวจสอบว่ามี loop.bat ใน directory หรือไม่
+          dir  # ตรวจสอบว่ามี loop.bat และ show.bat ใน directory หรือไม่
+
+      - name: Run show.bat (part 2)
+        run: |
+          echo "Running show.bat in Part 2"
+          cmd /c show.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
 
       - name: Run loop.bat (part 2)
         run: |
@@ -63,9 +79,19 @@ jobs:
     
     steps:
       - name: Download loop.bat artifact
-        uses: actions/download-artifact@v4  # เปลี่ยนจาก v3 เป็น v4
+        uses: actions/download-artifact@v4
         with:
           name: loop-bat
+
+      - name: Download show.bat artifact  # ดาวน์โหลด show.bat artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: show-bat
+
+      - name: Run show.bat (part 3)
+        run: |
+          echo "Running show.bat in Part 3"
+          cmd /c show.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
 
       - name: Run loop.bat (part 3)
         run: |
