@@ -1,4 +1,4 @@
-name: TOOLME5
+name: TOOLME6
 
 on:
   workflow_dispatch:
@@ -20,12 +20,18 @@ jobs:
           echo "Running show.bat"
           cmd /c show.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
 
-          echo "Downloading loop.bat"
-          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/starredntgod1/redno/refs/heads/main/loop.bat" -OutFile "loop.bat"
+          #echo "Downloading loop.bat"
+          #Invoke-WebRequest -Uri "https://raw.githubusercontent.com/starredntgod1/redno/refs/heads/main/loop.bat" -OutFile "loop.bat"
           
           # ตรวจสอบว่าไฟล์ loop.bat ดาวน์โหลดเรียบร้อยแล้ว
           echo "Listing current directory after downloading loop.bat"
           dir
+
+      - name: Upload loop.bat as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: loop-bat
+          path: loop.bat
 
   part2:
     name: Part 2
@@ -34,6 +40,11 @@ jobs:
     timeout-minutes: 360
     
     steps:
+      - name: Download loop.bat artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: loop-bat
+
       - name: Check for loop.bat file
         run: |
           echo "Listing files in current directory"
@@ -51,6 +62,11 @@ jobs:
     timeout-minutes: 360
     
     steps:
+      - name: Download loop.bat artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: loop-bat
+
       - name: Run loop.bat (part 3)
         run: |
           echo "Running loop.bat in Part 3"
