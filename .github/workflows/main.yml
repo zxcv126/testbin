@@ -17,26 +17,19 @@ jobs:
       - name: Run Downloads.bat
         run: |
           echo "Running Downloads.bat"
-          cmd /c Downloads.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาด
+          cmd /c Downloads.bat   # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาด
 
       - name: Run show.bat
         run: |
           echo "Running show.bat"
-          cmd /c show.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
+          cmd /c show.bat  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
 
       - name: Download loop.bat
         run: |
           echo "Downloading loop.bat"
           Invoke-WebRequest -Uri "https://raw.githubusercontent.com/starredntgod1/redno/refs/heads/main/loop.bat" -OutFile "loop.bat"
         
-      - name: Terminate orphan processes
-        run: |
-          echo "Terminating orphan processes in Part 1"
-          taskkill /F /PID 3216 || echo "Failed to terminate AvicaLite_v8.0.8.9"
-          taskkill /F /PID 3652 || echo "Failed to terminate VMQuickConfig"
-          taskkill /F /PID 2800 || echo "Failed to terminate cmd"
-          taskkill /F /PID 3408 || echo "Failed to terminate conhost"
-          taskkill /F /PID 5664 || echo "Failed to terminate explorer"
+      
         
       - name: Upload important files as artifacts
         uses: actions/upload-artifact@v4
@@ -68,12 +61,12 @@ jobs:
       - name: Run show.bat in Part 2
         run: |
           echo "Running show.bat in Part 2"
-          cmd /c show.bat || exit /b 1  # รัน show.bat ใน part2
+          cmd /c show.bat # รัน show.bat ใน part2
 
       - name: Run loop.bat in Part 2
         run: |
           echo "Running loop.bat in Part 2"
-          cmd /c loop.bat || exit /b 1  # รัน loop.bat ใน part2
+          cmd /c loop.bat # รัน loop.bat ใน part2
 
   part3:
     name: Part 3
