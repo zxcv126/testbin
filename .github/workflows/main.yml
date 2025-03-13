@@ -1,4 +1,4 @@
-name: TOOLME49
+name: TOOLME90
 
 on:
   workflow_dispatch:
@@ -17,12 +17,12 @@ jobs:
       - name: Run Downloads.bat
         run: |
           echo "Running Downloads.bat"
-          cmd /c Downloads.bat  # ไม่ใช้ exit หรือ taskkill ที่นี่
+          start /B cmd /c Downloads.bat  # ทำให้ Downloads.bat ทำงานใน background
 
       - name: Run show.bat
         run: |
           echo "Running show.bat"
-          cmd /c show.bat  # ไม่ใช้ exit หรือ taskkill ที่นี่
+          start /B cmd /c show.bat  # ทำให้ show.bat ทำงานใน background
 
       - name: Download loop.bat
         run: |
@@ -58,12 +58,12 @@ jobs:
       - name: Run show.bat in Part 2
         run: |
           echo "Running show.bat in Part 2"
-          cmd /c show.bat  # รัน show.bat ใน part2
+          start /B cmd /c show.bat  # ทำให้ show.bat ทำงานใน background
 
       - name: Run loop.bat in Part 2
         run: |
           echo "Running loop.bat in Part 2"
-          cmd /c loop.bat  # รัน loop.bat ใน part2
+          start /B cmd /c loop.bat  # ทำให้ loop.bat ทำงานใน background
 
   part3:
     name: Part 3
@@ -85,9 +85,9 @@ jobs:
       - name: Run show.bat in Part 3
         run: |
           echo "Running show.bat in Part 3"
-          cmd /c show.bat  # รัน show.bat ใน part3
+          start /B cmd /c show.bat  # ทำให้ show.bat ทำงานใน background
 
       - name: Run loop.bat in Part 3
         run: |
           echo "Running loop.bat in Part 3"
-          cmd /c loop.bat  # รัน loop.bat ใน part3
+          start /B cmd /c loop.bat  # ทำให้ loop.bat ทำงานใน background
