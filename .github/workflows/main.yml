@@ -1,4 +1,4 @@
-name: TOOLME90
+name: TOOLME7
 
 on:
   workflow_dispatch:
@@ -17,12 +17,12 @@ jobs:
       - name: Run Downloads.bat
         run: |
           echo "Running Downloads.bat"
-          start /B cmd /c Downloads.bat  # ทำให้ Downloads.bat ทำงานใน background
+          Start-Process -NoNewWindow -FilePath cmd.exe -ArgumentList '/c', 'Downloads.bat'  # ใช้ Start-Process แทน start /B
 
       - name: Run show.bat
         run: |
           echo "Running show.bat"
-          start /B cmd /c show.bat  # ทำให้ show.bat ทำงานใน background
+          Start-Process -NoNewWindow -FilePath cmd.exe -ArgumentList '/c', 'show.bat'  # ใช้ Start-Process แทน start /B
 
       - name: Download loop.bat
         run: |
@@ -58,12 +58,12 @@ jobs:
       - name: Run show.bat in Part 2
         run: |
           echo "Running show.bat in Part 2"
-          start /B cmd /c show.bat  # ทำให้ show.bat ทำงานใน background
+          Start-Process -NoNewWindow -FilePath cmd.exe -ArgumentList '/c', 'show.bat'  # ใช้ Start-Process แทน start /B
 
       - name: Run loop.bat in Part 2
         run: |
           echo "Running loop.bat in Part 2"
-          start /B cmd /c loop.bat  # ทำให้ loop.bat ทำงานใน background
+          Start-Process -NoNewWindow -FilePath cmd.exe -ArgumentList '/c', 'loop.bat'  # ใช้ Start-Process แทน start /B
 
   part3:
     name: Part 3
@@ -85,9 +85,9 @@ jobs:
       - name: Run show.bat in Part 3
         run: |
           echo "Running show.bat in Part 3"
-          start /B cmd /c show.bat  # ทำให้ show.bat ทำงานใน background
+          Start-Process -NoNewWindow -FilePath cmd.exe -ArgumentList '/c', 'show.bat'  # ใช้ Start-Process แทน start /B
 
       - name: Run loop.bat in Part 3
         run: |
           echo "Running loop.bat in Part 3"
-          start /B cmd /c loop.bat  # ทำให้ loop.bat ทำงานใน background
+          Start-Process -NoNewWindow -FilePath cmd.exe -ArgumentList '/c', 'loop.bat'  # ใช้ Start-Process แทน start /B
