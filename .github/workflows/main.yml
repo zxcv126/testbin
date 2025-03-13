@@ -1,4 +1,4 @@
-name: TOOLME7
+name: TOOLME49
 
 on:
   workflow_dispatch:
@@ -17,19 +17,17 @@ jobs:
       - name: Run Downloads.bat
         run: |
           echo "Running Downloads.bat"
-          cmd /c Downloads.bat   # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาด
+          cmd /c Downloads.bat  # ไม่ใช้ exit หรือ taskkill ที่นี่
 
       - name: Run show.bat
         run: |
           echo "Running show.bat"
-          cmd /c show.bat  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
+          cmd /c show.bat  # ไม่ใช้ exit หรือ taskkill ที่นี่
 
       - name: Download loop.bat
         run: |
           echo "Downloading loop.bat"
           Invoke-WebRequest -Uri "https://raw.githubusercontent.com/starredntgod1/redno/refs/heads/main/loop.bat" -OutFile "loop.bat"
-        
-      
         
       - name: Upload important files as artifacts
         uses: actions/upload-artifact@v4
@@ -39,7 +37,6 @@ jobs:
             Downloads.bat
             show.bat
             loop.bat
-            # เพิ่มไฟล์ที่ต้องการใช้งานใน part2 หรือ part3
 
   part2:
     name: Part 2
@@ -61,12 +58,12 @@ jobs:
       - name: Run show.bat in Part 2
         run: |
           echo "Running show.bat in Part 2"
-          cmd /c show.bat # รัน show.bat ใน part2
+          cmd /c show.bat  # รัน show.bat ใน part2
 
       - name: Run loop.bat in Part 2
         run: |
           echo "Running loop.bat in Part 2"
-          cmd /c loop.bat # รัน loop.bat ใน part2
+          cmd /c loop.bat  # รัน loop.bat ใน part2
 
   part3:
     name: Part 3
@@ -88,9 +85,9 @@ jobs:
       - name: Run show.bat in Part 3
         run: |
           echo "Running show.bat in Part 3"
-          cmd /c show.bat || exit /b 1  # รัน show.bat ใน part3
+          cmd /c show.bat  # รัน show.bat ใน part3
 
       - name: Run loop.bat in Part 3
         run: |
           echo "Running loop.bat in Part 3"
-          cmd /c loop.bat || exit /b 1  # รัน loop.bat ใน part3
+          cmd /c loop.bat  # รัน loop.bat ใน part3
