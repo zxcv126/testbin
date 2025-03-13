@@ -1,4 +1,4 @@
-name: TOOLME21
+name: TOOLME35
 
 on:
   workflow_dispatch:
@@ -14,15 +14,15 @@ jobs:
           echo "Downloading Downloads.bat"
           Invoke-WebRequest -Uri "https://raw.githubusercontent.com/starredntgod1/redno/refs/heads/main/Downloads.bat" -OutFile "Downloads.bat"
 
-      - name: Run Downloads.bat and save output to result.txt
+      - name: Run Downloads.bat
         run: |
           echo "Running Downloads.bat"
-          cmd /c Downloads.bat >> result.txt  # บันทึกผลลัพธ์จาก Downloads.bat ลงใน result.txt
+          cmd /c Downloads.bat  # รัน Downloads.bat โดยไม่บันทึกผลลัพธ์
 
-      - name: Run show.bat and save output to result.txt
+      - name: Run show.bat
         run: |
           echo "Running show.bat in Part 1"
-          cmd /c show.bat >> result.txt  # บันทึกผลลัพธ์จาก show.bat ลงใน result.txt
+          cmd /c show.bat  # รัน show.bat โดยไม่บันทึกผลลัพธ์
 
       - name: Download loop.bat
         run: |
@@ -37,7 +37,6 @@ jobs:
             Downloads.bat
             show.bat
             loop.bat
-            result.txt  # บันทึกผลลัพธ์จาก show.bat และ Downloads.bat
 
   part2:
     name: Part 2
