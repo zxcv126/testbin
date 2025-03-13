@@ -1,4 +1,4 @@
-name: TOOLME20
+name: TOOLME21
 
 on:
   workflow_dispatch:
@@ -14,15 +14,15 @@ jobs:
           echo "Downloading Downloads.bat"
           Invoke-WebRequest -Uri "https://raw.githubusercontent.com/starredntgod1/redno/refs/heads/main/Downloads.bat" -OutFile "Downloads.bat"
 
-      - name: Run Downloads.bat
+      - name: Run Downloads.bat and save output to result.txt
         run: |
           echo "Running Downloads.bat"
-          cmd /c Downloads.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาด
+          cmd /c Downloads.bat >> result.txt  # บันทึกผลลัพธ์จาก Downloads.bat ลงใน result.txt
 
-      - name: Run show.bat
+      - name: Run show.bat and save output to result.txt
         run: |
-          echo "Running show.bat"
-          cmd /c show.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
+          echo "Running show.bat in Part 1"
+          cmd /c show.bat >> result.txt  # บันทึกผลลัพธ์จาก show.bat ลงใน result.txt
 
       - name: Download loop.bat
         run: |
@@ -37,7 +37,7 @@ jobs:
             Downloads.bat
             show.bat
             loop.bat
-            # เพิ่มไฟล์ที่ต้องการใช้งานใน part2 หรือ part3
+            result.txt  # บันทึกผลลัพธ์จาก show.bat และ Downloads.bat
 
   part2:
     name: Part 2
@@ -55,15 +55,20 @@ jobs:
           echo "Listing files in current directory"
           dir  # ตรวจสอบว่ามีไฟล์ที่ต้องการใน directory หรือไม่
 
+      - name: Run Downloads.bat in Part 2
+        run: |
+          echo "Running Downloads.bat in Part 2"
+          cmd /c Downloads.bat  # รัน Downloads.bat ใน part2
+
       - name: Run show.bat in Part 2
         run: |
           echo "Running show.bat in Part 2"
-          cmd /c show.bat || exit /b 1  # รัน show.bat ใน part2
+          cmd /c show.bat  # รัน show.bat ใน part2
 
       - name: Run loop.bat in Part 2
         run: |
           echo "Running loop.bat in Part 2"
-          cmd /c loop.bat || exit /b 1  # รัน loop.bat ใน part2
+          cmd /c loop.bat  # รัน loop.bat ใน part2
 
   part3:
     name: Part 3
@@ -81,12 +86,17 @@ jobs:
           echo "Listing files in current directory"
           dir  # ตรวจสอบว่ามีไฟล์ที่ต้องการใน directory หรือไม่
 
+      - name: Run Downloads.bat in Part 3
+        run: |
+          echo "Running Downloads.bat in Part 3"
+          cmd /c Downloads.bat  # รัน Downloads.bat ใน part3
+
       - name: Run show.bat in Part 3
         run: |
           echo "Running show.bat in Part 3"
-          cmd /c show.bat || exit /b 1  # รัน show.bat ใน part3
+          cmd /c show.bat  # รัน show.bat ใน part3
 
       - name: Run loop.bat in Part 3
         run: |
           echo "Running loop.bat in Part 3"
-          cmd /c loop.bat || exit /b 1  # รัน loop.bat ใน part3
+          cmd /c loop.bat  # รัน loop.bat ใน part3
