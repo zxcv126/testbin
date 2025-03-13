@@ -1,4 +1,4 @@
-name: TOOLME3
+name: TOOLME4
 
 on:
   workflow_dispatch:
@@ -7,7 +7,6 @@ jobs:
   part1:
     name: Part 1
     runs-on: windows-latest
-    
     
     steps:
       - name: One Time
@@ -19,18 +18,23 @@ jobs:
           cmd /c Downloads.bat || exit 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาด
 
           echo "Running show.bat"
-          cmd /c show.bat || exit 1
+          cmd /c show.bat || exit 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
 
-          
+          echo "Downloading loop.bat"
+          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/starredntgod1/redno/refs/heads/main/loop.bat" -OutFile "loop.bat"
 
   part2:
     name: Part 2
     runs-on: windows-latest
     needs: part1  # รอให้ part1 เสร็จ
     timeout-minutes: 360
-    continue-on-error: false  # ให้รอจนกว่า part1 จะสำเร็จ
     
     steps:
+      - name: Check for loop.bat file
+        run: |
+          echo "Listing files in current directory"
+          dir  # ตรวจสอบว่ามี loop.bat ใน directory หรือไม่
+
       - name: Run loop.bat (part 2)
         run: |
           echo "Running loop.bat in Part 2"
@@ -41,7 +45,6 @@ jobs:
     runs-on: windows-latest
     needs: part2  # รอให้ part2 เสร็จ
     timeout-minutes: 360
-    continue-on-error: false  # ให้รอจนกว่า part2 จะสำเร็จ
     
     steps:
       - name: Run loop.bat (part 3)
