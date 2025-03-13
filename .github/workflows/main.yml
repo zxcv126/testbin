@@ -1,4 +1,4 @@
-name: TOOLME4
+name: TOOLME5
 
 on:
   workflow_dispatch:
@@ -15,13 +15,17 @@ jobs:
           Invoke-WebRequest -Uri "https://raw.githubusercontent.com/starredntgod1/redno/refs/heads/main/Downloads.bat" -OutFile "Downloads.bat"
           
           echo "Running Downloads.bat"
-          cmd /c Downloads.bat || exit 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาด
+          cmd /c Downloads.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาด
 
           echo "Running show.bat"
-          cmd /c show.bat || exit 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
+          cmd /c show.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
 
           echo "Downloading loop.bat"
           Invoke-WebRequest -Uri "https://raw.githubusercontent.com/starredntgod1/redno/refs/heads/main/loop.bat" -OutFile "loop.bat"
+          
+          # ตรวจสอบว่าไฟล์ loop.bat ดาวน์โหลดเรียบร้อยแล้ว
+          echo "Listing current directory after downloading loop.bat"
+          dir
 
   part2:
     name: Part 2
@@ -38,7 +42,7 @@ jobs:
       - name: Run loop.bat (part 2)
         run: |
           echo "Running loop.bat in Part 2"
-          cmd /c loop.bat || exit 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน loop.bat
+          cmd /c loop.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน loop.bat
 
   part3:
     name: Part 3
@@ -50,4 +54,4 @@ jobs:
       - name: Run loop.bat (part 3)
         run: |
           echo "Running loop.bat in Part 3"
-          cmd /c loop.bat || exit 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน loop.bat
+          cmd /c loop.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน loop.bat
