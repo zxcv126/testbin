@@ -22,7 +22,7 @@ jobs:
       - name: Run show.bat
         run: |
           echo "Running show.bat"
-          cmd /c show.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
+          cmd /c loop.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
 
       - name: Download loop.bat
         run: |
