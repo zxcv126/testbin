@@ -7,7 +7,7 @@ jobs:
   part1:
     name: Part 1
     runs-on: windows-latest
-    timeout-minutes: 360
+    
     
     steps:
       - name: One Time
@@ -21,8 +21,7 @@ jobs:
           echo "Running show.bat"
           cmd /c show.bat || exit 1
 
-          echo "Running loop.bat"
-          cmd /c loop.bat || exit 1
+          
 
   part2:
     name: Part 2
