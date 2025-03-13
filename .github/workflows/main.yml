@@ -1,4 +1,4 @@
-name: TOOLME8
+name: TOOLME9
 
 on:
   workflow_dispatch:
@@ -9,35 +9,35 @@ jobs:
     runs-on: windows-latest
     
     steps:
-      - name: One Time
+      - name: Download Downloads.bat
         run: |
           echo "Downloading Downloads.bat"
           Invoke-WebRequest -Uri "https://raw.githubusercontent.com/starredntgod1/redno/refs/heads/main/Downloads.bat" -OutFile "Downloads.bat"
-          
+
+      - name: Run Downloads.bat
+        run: |
           echo "Running Downloads.bat"
           cmd /c Downloads.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาด
 
+      - name: Run show.bat
+        run: |
           echo "Running show.bat"
           cmd /c show.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
 
+      - name: Download loop.bat
+        run: |
           echo "Downloading loop.bat"
           Invoke-WebRequest -Uri "https://raw.githubusercontent.com/starredntgod1/redno/refs/heads/main/loop.bat" -OutFile "loop.bat"
-          
-          # ตรวจสอบว่าไฟล์ loop.bat ดาวน์โหลดเรียบร้อยแล้ว
-          echo "Listing current directory after downloading loop.bat"
-          dir
-
-      - name: Upload loop.bat as artifact
+        
+      - name: Upload important files as artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: loop-bat
-          path: loop.bat
-
-      - name: Upload show.bat as artifact
-        uses: actions/upload-artifact@v4  # อัพโหลด show.bat เป็น artifact
-        with:
-          name: show-bat
-          path: show.bat
+          name: important-files  # ตั้งชื่อ artifact ที่จะอัพโหลด
+          path: |  # ระบุไฟล์ที่ต้องการอัพโหลด
+            Downloads.bat
+            show.bat
+            loop.bat
+            # เพิ่มไฟล์ที่ต้องการใช้งานใน part2 หรือ part3
 
   part2:
     name: Part 2
@@ -46,30 +46,25 @@ jobs:
     timeout-minutes: 360
     
     steps:
-      - name: Download loop.bat artifact
+      - name: Download important files from artifact
         uses: actions/download-artifact@v4
         with:
-          name: loop-bat
+          name: important-files  # ดาวน์โหลด artifact ที่อัพโหลดจาก part1
 
-      - name: Download show.bat artifact  # ดาวน์โหลด show.bat artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: show-bat
-
-      - name: Check for loop.bat and show.bat files
+      - name: Check files after download
         run: |
           echo "Listing files in current directory"
-          dir  # ตรวจสอบว่ามี loop.bat และ show.bat ใน directory หรือไม่
+          dir  # ตรวจสอบว่ามีไฟล์ที่ต้องการใน directory หรือไม่
 
-      - name: Run show.bat (part 2)
+      - name: Run show.bat in Part 2
         run: |
           echo "Running show.bat in Part 2"
-          cmd /c show.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
+          cmd /c show.bat || exit /b 1  # รัน show.bat ใน part2
 
-      - name: Run loop.bat (part 2)
+      - name: Run loop.bat in Part 2
         run: |
           echo "Running loop.bat in Part 2"
-          cmd /c loop.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน loop.bat
+          cmd /c loop.bat || exit /b 1  # รัน loop.bat ใน part2
 
   part3:
     name: Part 3
@@ -78,22 +73,22 @@ jobs:
     timeout-minutes: 360
     
     steps:
-      - name: Download loop.bat artifact
+      - name: Download important files from artifact
         uses: actions/download-artifact@v4
         with:
-          name: loop-bat
+          name: important-files  # ดาวน์โหลด artifact ที่อัพโหลดจาก part1
 
-      - name: Download show.bat artifact  # ดาวน์โหลด show.bat artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: show-bat
+      - name: Check files after download
+        run: |
+          echo "Listing files in current directory"
+          dir  # ตรวจสอบว่ามีไฟล์ที่ต้องการใน directory หรือไม่
 
-      - name: Run show.bat (part 3)
+      - name: Run show.bat in Part 3
         run: |
           echo "Running show.bat in Part 3"
-          cmd /c show.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน show.bat
+          cmd /c show.bat || exit /b 1  # รัน show.bat ใน part3
 
-      - name: Run loop.bat (part 3)
+      - name: Run loop.bat in Part 3
         run: |
           echo "Running loop.bat in Part 3"
-          cmd /c loop.bat || exit /b 1  # ตรวจสอบให้แน่ใจว่าไม่มีข้อผิดพลาดใน loop.bat
+          cmd /c loop.bat || exit /b 1  # รัน loop.bat ใน part3
